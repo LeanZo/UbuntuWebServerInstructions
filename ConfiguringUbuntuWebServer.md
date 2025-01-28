@@ -90,6 +90,11 @@ Install the NestJS CLI globally:
 npm i -g @nestjs/cli
 ```
 
+Install Yarn globally:
+```bash
+npm install --global yarn
+```
+
 ---
 
 ## ⚙️ Step 6 – Setting Nginx to Serve the Node/NestJS Application
