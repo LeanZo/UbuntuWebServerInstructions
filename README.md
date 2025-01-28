@@ -19,7 +19,7 @@ Learn how to deploy a new Node/NestJS application on your Ubuntu server:
 ## 🚀 CI/CD Workflow Examples  
 
 ### 📌 Reference:  
-- [CI/CD Pipeline for a NestJS App](https://web.archive.org/web/20250128020342/https://medium.com/@ghaith.arfaoui34/ci-cd-pipeline-for-a-nest-js-83149c3f9ece)  
+- [CI/CD Pipeline for a NestJS App](https://web.archive.org/web/20250128020359/http://web.archive.org/screenshot/https://medium.com/@ghaith.arfaoui34/ci-cd-pipeline-for-a-nest-js-83149c3f9ece)  
 
 ### ⚡ CI/CD Workflows  
 
