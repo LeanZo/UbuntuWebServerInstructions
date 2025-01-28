@@ -58,6 +58,11 @@ sudo nano /etc/nginx/nginx.conf
 
 Find the `server_names_hash_bucket_size` directive, remove the `#` to uncomment it, then save and close.
 
+Disable the default symlink otherwise, nginx will redirect all requests to the default site:
+```bash
+sudo unlink /etc/nginx/sites-enabled/default
+```
+
 Test the configuration:
 ```bash
 sudo nginx -t
@@ -91,6 +96,11 @@ npm i -g @nestjs/cli
 Install the PM2 process manager:
 ```bash
 npm install -g pm2
+```
+
+Configure pm2 to start up on server restarts:
+```bash
+pm2 startup
 ```
 
 ---
