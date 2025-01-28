@@ -1,0 +1,64 @@
+name: Next.js CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the repository
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      # Set up Node.js environment
+      - name: Set up Node.js 22.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 22.x
+          cache: 'yarn'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: yarn
+
+      # Build the project
+      - name: Build the project
+        run: PORT=3001 API_URL=https://API_URL.com/ yarn build
+
+      # Delete node modules
+      - name: Delete node_monules
+        run: rm -rf node_modules
+
+      # Create tar file
+      - name: Create tar file
+        run: touch build.tar.gz
+        
+      # Compress the build folder
+      - name: Compress the build folder
+        run: tar --exclude=build.tar.gz -czf build.tar.gz .
+
+      # Install sshpass
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      # Copy the build to server
+      - name: Copy build to server
+        run: |
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" scp -v -o StrictHostKeyChecking=no build.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/root/your_app_name_or_domain
+
+      # Finalize deployment on the server
+      - name: Finalize deployment
+        run: |
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+          cd /root/your_app_name_or_domain
+          tar -xzf build.tar.gz
+          yarn install --production
+          pm2 stop your_domain || true
+          pm2 delete your_domain || true
+          PORT=3001 API_URL=https://API_URL.com/ pm2 start yarn --name "your_domain" -- start -- -p 3001
+          pm2 save
+          EOF
