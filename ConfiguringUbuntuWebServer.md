@@ -27,10 +27,10 @@ sudo ufw app list
 
 Enable necessary services:
 ```bash
-ufw enable
 ufw allow 22
 ufw allow 5432/tcp
 ufw allow 'Nginx Full'
+ufw enable
 ```
 
 Verify the status (look for `Nginx Full` being active):
