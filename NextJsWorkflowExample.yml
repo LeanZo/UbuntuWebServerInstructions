@@ -30,7 +30,7 @@ jobs:
         run: PORT=3001 API_URL=https://API_URL.com/ yarn build
 
       # Delete node modules
-      - name: Delete node_monules
+      - name: Delete node_modules
         run: rm -rf node_modules
 
       # Create tar file
