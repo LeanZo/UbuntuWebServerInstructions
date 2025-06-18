@@ -165,6 +165,17 @@ Find the line `#listen_addresses = 'localhost'` and change it to:
 listen_addresses = '*'
 ```
 
+Find the lines `timezone = 'Etc/UTC'` and `logs_timezone = 'Etc/UTC'` and change it to:
+```
+timezone = 'America/Sao_Paulo'
+logs_timezone = 'America/Sao_Paulo'
+```
+
+Can check the database timezone using:
+```sql
+SHOW timezone;
+```
+
 Edit the `pg_hba.conf` file:
 ```bash
 sudo nano /etc/postgresql/(VERSION_NUMBER)/main/pg_hba.conf
@@ -178,6 +189,24 @@ host    all             all             0.0.0.0/0               md5
 Restart PostgreSQL to apply changes:
 ```bash
 sudo systemctl restart postgresql
+```
+
+---
+
+## 🕒 Step 12 – Set server timezone
+Check timezone:
+```bash
+timedatectl
+```
+
+Set Timezone to Brazilian Timezone:
+```bash
+sudo timedatectl set-timezone America/Sao_Paulo
+```
+
+Reboot server:
+```bash
+sudo reboot
 ```
 
 ---
